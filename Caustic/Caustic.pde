@@ -12,12 +12,13 @@ void setup() {
   memb.gauss(0.5, 0.5, 0.1, 0.2);
 } 
 
-int raining = 0;
-int ns = 0;
+int raining = 0; //rain levels; 0, 1, 3, 7, 15
+int dead = 0;  //dead period when key input is ignored.
 
 void draw () {
-  background(0,120,200);
-  fill(255,255,255,100);
+  //background(0,120,200);
+  background(0);
+  fill(255,255,255,20);
   noStroke();
   //memb.draw(pixelsize);
   memb.progress(0.4);
@@ -41,12 +42,12 @@ void draw () {
       memb.xslanting(-0.001);
     }else if (key == ' '){
       memb.thrumping(0.01);
-    }else if ((key == 'r')&&(ns<0)){
-      raining += raining + 1; // 0 1 3 7 15 
+    }else if ((key == 'r')&&(dead<0)){
+      raining += raining + 1; 
       if (raining > 16){
         raining = 0;
       }
-      ns = 100;
+      dead = 20;
     }
   }
   
@@ -54,7 +55,7 @@ void draw () {
   textSize(16);
   text("Frame rate: " + int(frameRate), 10, 20);
   text("rain: " + int(raining), 10, 40);
-  ns -= 1;
+  dead -= 1;
 }
 
 
