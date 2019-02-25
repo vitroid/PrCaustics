@@ -12,7 +12,7 @@ void setup() {
   memb.gauss(0.5, 0.5, 0.1, 0.2);
 } 
 
-boolean raining = false;
+int raining = 0;
 int ns = 0;
 
 void draw () {
@@ -29,9 +29,9 @@ void draw () {
     float y = float(mouseY) / height;
     memb.gauss(x,y,0.05,0.05);
   }
-  if (raining){
-    if (random(1) < 0.05){
-      memb.gauss(random(1), random(1), 0.05, 0.2);
+  if (raining > 0){
+    if (random(1) < 0.01*raining){
+      memb.gauss(random(1), random(1), 0.05, 0.1);
     }
   }
   if (keyPressed){
@@ -42,7 +42,10 @@ void draw () {
     }else if (key == ' '){
       memb.thrumping(0.01);
     }else if ((key == 'r')&&(ns<0)){
-      raining = ! raining;
+      raining += raining + 1; // 0 1 3 7 15 
+      if (raining > 16){
+        raining = 0;
+      }
       ns = 100;
     }
   }
@@ -50,9 +53,7 @@ void draw () {
   fill(255);
   textSize(16);
   text("Frame rate: " + int(frameRate), 10, 20);
-  if ( raining ){
-    text("raining...", 10, 40);
-  }
+  text("rain: " + int(raining), 10, 40);
   ns -= 1;
 }
 
