@@ -5,7 +5,8 @@ Membrane memb;
 int pixelsize=8;
 
 void setup() {
-  size(1440, 800, P2D);
+  fullScreen(P2D);
+  //size(1440, 800, P2D);
   orientation(LANDSCAPE);
   
   memb = new Membrane(width/pixelsize, height/pixelsize, 180.0);
@@ -53,6 +54,7 @@ void draw () {
   
   fill(255);
   textSize(16);
+  text(width + "x" + height, 150, 20);
   text("Frame rate: " + int(frameRate), 10, 20);
   text("rain: " + int(raining), 10, 40);
   dead -= 1;
