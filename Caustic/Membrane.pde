@@ -15,8 +15,8 @@ class Membrane {
     mass = 1.0;
   }
   void gauss(float cx, float cy, float cr, float dz){
-    int x = int(cx*width);
-    int y = int(cy*height);
+    int x = int(cx*(width-2))+1;
+    int y = int(cy*(height-2))+1;
     int r = int(cr*width);
     for(int dx=-r; dx <= +r; dx++){
       int ix = x+dx;
