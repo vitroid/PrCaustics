@@ -2,12 +2,11 @@
 //2019-02-23
 
 Membrane memb;
-int pixelsize=8;
+int pixelsize=3;
 
 void setup() {
-  fullScreen(P2D);
-  //size(1440, 800, P2D);
-  orientation(LANDSCAPE);
+  //fullScreen(P2D);
+  size(360, 225, P2D);
   
   memb = new Membrane(width/pixelsize, height/pixelsize, 180.0);
   memb.gauss(0.5, 0.5, 0.1, 0.2);
@@ -17,11 +16,11 @@ int raining = 0; //rain levels; 0, 1, 3, 7, 15
 int dead = 0;  //dead period when key input is ignored.
 
 void draw () {
-  //background(0,120,200);
-  background(0);
-  fill(255,255,255,20);
+  background(0,120,200);
+  //background(0);
+
+  fill(255,255,255);
   noStroke();
-  //memb.draw(pixelsize);
   memb.progress(0.4);
   memb.progress(0.4);
   memb.photons(pixelsize);

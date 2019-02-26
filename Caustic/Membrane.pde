@@ -89,7 +89,7 @@ class Membrane {
         float gradx = z[x+1][y]-z[x][y];
         float grady = z[x][y+1]-z[x][y];
         rect(x*zoom-int(gradx*d)-r,
-             y*zoom-int(grady*d)-r,r*2,r*2);
+             y*zoom-int(grady*d)-r,1,1);
       }
     }
     
