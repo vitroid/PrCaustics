@@ -5,7 +5,7 @@ Amplitude amp;
 AudioIn in;
 
 Membrane memb;
-int pixelsize=48;
+int pixelsize=8;
 
 void setup() {
   fullScreen(P2D);
@@ -30,6 +30,7 @@ float rainfall = 0; //rain levels; 0, 1, 3, 7, 15
 float accum;
 int lastm = 0;
 
+
 void draw () {
   //println(amp.analyze());
   //background(0,120,200);
@@ -48,7 +49,7 @@ void draw () {
   if ( m != lastm ){
     lastm = m;
     XML xml = loadXML(url);
-    rainfall = xml.getFloat("Rainfall"); //.getFloatContent();
+    rainfall = xml.getFloat("Rainfall");
   }  
   if (mousePressed){
     float x = float(mouseX) / width;
@@ -72,10 +73,9 @@ void draw () {
   }
 
   fill(255);
-  textSize(16);
-  text(width + "x" + height, 150, 20);
-  text("Frame rate: " + int(frameRate), 10, 20);
-  text("" + h + ":" + m + " rain: " + rainfall, 10, 40);
+  textSize(40);
+  //text(width + "x" + height + "." + int(frameRate), 300, 90);
+  text("" + h + ":" + m + " " + rainfall + " mm/h", 300, 50);
 }
 
 
