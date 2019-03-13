@@ -8,8 +8,8 @@ Membrane memb;
 int pixelsize=8;
 
 void setup() {
-  fullScreen(P2D);
-  //size(1440, 800, P2D);
+  //fullScreen(P2D);
+  size(1440, 800, P2D);
   orientation(LANDSCAPE);
   
   memb = new Membrane(width/pixelsize, height/pixelsize, 180.0);
@@ -28,18 +28,36 @@ String url    = "https://map.yahooapis.jp/weather/V1/place?coordinates="+okayama
 
 float rainfall = 0; //rain levels; 0, 1, 3, 7, 15
 float accum;
-int lastm = 0;
+float lastm = 0;
+float Pi=3.14159;
 
 
 void draw () {
   //println(amp.analyze());
-  //background(0,120,200);
-  int m = minute();
-  int h = hour();
-
-  //sky color
+  float m = minute();
+  float h = hour()+0;
+  float sec = second();
+  float now = (sec/60+m)/24+h;
+  //now=(now*600)%24;
+  h=int(now);
+  m=int((now%1)*60);
   
-  background(0);
+  //sky color
+  float phase=0;
+  if ((4<=now)&&(now<6)){
+    phase = (now-4.)/2;
+  }
+  else if ((6<=now)&&(now<18)){
+    phase = 1;
+  }
+  else if ((18<=now)&&(now<20)){
+    phase =(20-now)/2;
+  }
+  float red = (150*(1-phase) + 0   * phase) * phase;
+  float gre = (0  *(1-phase) + 120 * phase) * phase;
+  float blu = (150*(1-phase) + 200 * phase) * phase;
+  background(red,gre,blu);
+    
   fill(255,255,255,50);
   //fill(255,255,255);
   noStroke();
@@ -51,8 +69,9 @@ void draw () {
   // weather check
   if ( m != lastm ){
     lastm = m;
-    XML xml = loadXML(url);
-    rainfall = xml.getFloat("Rainfall");
+    //XML xml = loadXML(url);
+    //rainfall = xml.getFloat("Rainfall");
+    println(rainfall);
   }  
   if (mousePressed){
     float x = float(mouseX) / width;
