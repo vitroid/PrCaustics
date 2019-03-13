@@ -5,14 +5,14 @@ Amplitude amp;
 AudioIn in;
 
 Membrane memb;
-int pixelsize=12;
+int pixelsize=8;
 
 void setup() {
   fullScreen(P2D);
   //size(1440, 800, P2D);
   orientation(LANDSCAPE);
   
-  memb = new Membrane(width/pixelsize, height/pixelsize, 120.0);
+  memb = new Membrane(width/pixelsize, height/pixelsize, 180.0);
   memb.gauss(0.5, 0.5, 0.1, 0.2);
   
    // Create an Input stream which is routed into the Amplitude analyzer
@@ -29,8 +29,8 @@ float accum;
 
 void draw () {
   //println(amp.analyze());
-  background(0,120,200);
-  //background(0);
+  //background(0,120,200);
+  background(0);
   fill(255,255,255,50);
   //fill(255,255,255);
   noStroke();
@@ -38,7 +38,7 @@ void draw () {
   memb.progress(0.4);
   memb.progress(0.4);
   memb.photons(pixelsize);
-  memb.damping(1.0-0.007);
+  memb.damping(1.0-0.009);
   if (mousePressed){
     float x = float(mouseX) / width;
     float y = float(mouseY) / height;

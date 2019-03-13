@@ -34,6 +34,11 @@ int lastm = 0;
 void draw () {
   //println(amp.analyze());
   //background(0,120,200);
+  int m = minute();
+  int h = hour();
+
+  //sky color
+  
   background(0);
   fill(255,255,255,50);
   //fill(255,255,255);
@@ -44,8 +49,6 @@ void draw () {
   memb.photons(pixelsize);
   memb.damping(1.0-0.003);
   // weather check
-  int m = minute();
-  int h = hour();
   if ( m != lastm ){
     lastm = m;
     XML xml = loadXML(url);
