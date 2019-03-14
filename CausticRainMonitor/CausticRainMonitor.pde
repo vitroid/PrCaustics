@@ -8,11 +8,11 @@ Membrane memb;
 int pixelsize=8;
 
 void setup() {
-  //fullScreen(P2D);
-  size(1440, 800, P2D);
+  fullScreen(P2D);
+  //size(1440, 800, P2D);
   orientation(LANDSCAPE);
   
-  memb = new Membrane(width/pixelsize, height/pixelsize, 180.0);
+  memb = new Membrane(width/pixelsize, height/pixelsize, 300.0);
   memb.gauss(0.5, 0.5, 0.1, 0.2);
   
    // Create an Input stream which is routed into the Amplitude analyzer
@@ -35,12 +35,9 @@ float Pi=3.14159;
 void draw () {
   //println(amp.analyze());
   float m = minute();
-  float h = hour()+0;
+  float h = hour();
   float sec = second();
-  float now = (sec/60+m)/24+h;
-  //now=(now*600)%24;
-  h=int(now);
-  m=int((now%1)*60);
+  float now = (sec/60+m)/60+h;
   
   //sky color
   float phase=0;
@@ -65,12 +62,12 @@ void draw () {
   memb.progress(0.4);
   memb.progress(0.4);
   memb.photons(pixelsize);
-  memb.damping(1.0-0.003);
+  memb.damping(1.0-0.005);
   // weather check
   if ( m != lastm ){
     lastm = m;
-    //XML xml = loadXML(url);
-    //rainfall = xml.getFloat("Rainfall");
+    XML xml = loadXML(url);
+    rainfall = xml.getFloat("Rainfall");
     println(rainfall);
   }  
   if (mousePressed){
@@ -79,7 +76,7 @@ void draw () {
     memb.gauss(x,y,0.05,0.05);
   }
   if (random(1) < 0.01*rainfall){
-      memb.gauss(random(1), random(1), 0.05, 0.1);
+      memb.gauss(random(1), random(1), 0.05, 0.2);
   }
   float loudness = amp.analyze();
   accum += loudness*0.6;
@@ -97,7 +94,9 @@ void draw () {
   fill(255);
   textSize(40);
   //text(width + "x" + height + "." + int(frameRate), 300, 90);
-  text("" + h + ":" + m + " " + rainfall + " mm/h", 300, 50);
+  String s=String.format("%02d:%02d %.2f mm/h", int(h), int(m), rainfall);
+  //text("" + int(h) + ":" + int(m) + " " + rainfall + " mm/h", 300, 50);
+  text(s, 300, 50);
 }
 
 
