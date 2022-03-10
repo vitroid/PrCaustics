@@ -2,7 +2,7 @@
 //Caustic simulation by Masakazu Matsumoto
 //2019-02-23
 import processing.sound.*;
-AudioIn ain;
+//AudioIn ain;
 //Amplitude amp;
 
 
@@ -149,8 +149,8 @@ void setup() {
   
    // Create an Input stream which is routed into the Amplitude analyzer
   //amp = new Amplitude(this);
-  ain = new AudioIn(this, 0);
-  ain.start();
+  // ain = new AudioIn(this, 0);
+  // ain.start();
   //amp.input(ain);
 } 
 
